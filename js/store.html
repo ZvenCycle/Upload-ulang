@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store - FigureStore</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --poppins: 'Poppins', sans-serif;
+            --lato: 'Lato', sans-serif;
+            --light: #F9F9F9;
+            --dark: #343a40;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: poppins, sans-serif;
+            text-decoration: none;
+            transition: all .3s ease;
+            scroll-behavior: smooth;
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 0.5rem;
+            background: var(--grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            width: 0.5rem;
+            background: var(--red);
+            border-radius: 5rem;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--orange);
+        }
+
+        :root {
+            --poppins: 'Poppins', sans-serif;
+            --lato: 'Lato', sans-serif;
+
+            /* Color basic */
+            --light: #F9F9F9;
+            --blue: #3C91E6;
+            --light-blue: #CFE8FF;
+            --grey: #e7e7e7;
+            --dark-grey: #888888;
+            --dark: #222;
+
+            /* Main Color */
+            --red: #ff6b6b;
+            --yellow: #FFCE26;
+            --light-yellow: #FFF2C6;
+            --orange: #fb6727;
+            --light-orange: #FFE0D3;
+
+            /* Secondary Color */
+        }
+
+        body {
+            font-family: var(--lato);
+            background-color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark {
+            --light: #222;
+            --grey: #e7e7e7;
+            --dark: #F9F9F9;
+
+            /* Main Color Switch */
+            --red: #fb6727;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--dark);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--red) !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-brand i {
+            font-size: 1.8rem;
+            color: var(--red);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--light);
+            padding: 8px 16px !important;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 0 4px;
+        }
+
+        .nav-link:hover {
+            color: var(--red);
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+
+        .nav-link.active1 {
+            color: var(--red);
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+
+        .nav-link i {
+            margin-right: 6px;
+            font-size: 1.2rem;
+        }
+
+        /* Content Styles */
+        .content {
+            padding-top: 100px;
+            flex: 1;
+        }
+
+        .content h2 {
+            font-family: var(--poppins);
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 30px;
+        }
+
+        /* Card Styles */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4p    x 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow2) ;
+        }
+
+        .card-img-top {
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h5, .card-body p{
+            color: #222;
+        }
+
+        .card-title {
+            font-family: var(--poppins);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .card-text {
+            color: #ff6b6b;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #ff6b6b !important;
+            border-color: #ff6b6b !important;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #fa5252 !important;
+            border-color: #fa5252 !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-danger {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #ff6b6b;
+            border-color: #ff6b6b;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        /* Footer Styles */
+        /* footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+            margin-top: auto;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-brand i {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+        }
+
+        footer h5 {
+            font-family: var(--poppins);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer ul li a {
+            color: #adb5bd;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        footer ul li a:hover {
+            color: #ff6b6b;
+            transform: translateX(5px);
+        }
+
+        footer ul li a i {
+            margin-right: 8px;
+        }
+
+        .text-light-gray {
+            color: #adb5bd;
+        } */
+
+        /* Notification Styles */
+        .notification-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Footer Styles */
+        /* .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #adb5bd;
+            margin-bottom: 15px;
+        }
+
+        .contact-info li i {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+        }
+
+        .social-links a {
+            color: #adb5bd;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ff6b6b;
+            transform: translateY(-3px);
+        }
+
+        footer hr {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        footer .text-light {
+            color: #adb5bd !important;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer .text-light:hover {
+            color: #ff6b6b !important;
+        } */
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            gap: 15px;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item h6 {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .cart-item p {
+            margin-bottom: 0;
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .cart-total {
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-top: 2px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class='bx bxs-store'></i>
+                FigureStore
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="index.html">
+                            <i class='bx bxs-home'></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active1" href="store.html">
+                            <i class='bx bxs-shopping-bag-alt'></i> Store
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="categories.html">
+                            <i class='bx bxs-category'></i> Categories
+                        </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="list.html">
+                            <i class='bx bxs-heart'></i> Wishlist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="AI.html">
+                            <i class='bx bxs-chat'></i>AI Asistens
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="cart-icon me-3 position-relative">
+                        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+                            <i class='bx bxs-cart' style="font-size: 1.5rem; color: #ff6b6b;"></i>
+                            <span class="cart-count">0</span>
+                        </button>
+                    </div>
+                    <div class="theme-switch">
+                        <input type="checkbox" id="switch-mode" hidden>
+                        <label for="switch-mode" class="switch-mode"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="content">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Our Products</h2>
+                <select class="form-select" style="width: auto;" onchange="sortProducts(this.value)">
+                    <option value="terbaru">Terbaru</option>
+                    <option value="harga-terendah">Harga: Rendah ke Tinggi</option>
+                    <option value="harga-tertinggi">Harga: Tinggi ke Rendah</option>
+                </select>
+            </div>
+            <!-- FILTER KATEGORI -->
+            <div class="mb-4">
+                <h5>Filter Kategori</h5>
+                <div id="categoryFilters" class="d-flex flex-wrap gap-3">
+                    <div>
+                        <input type="checkbox" id="filter-nendoroid" value="Nendoroid" class="category-checkbox">
+                        <label for="filter-nendoroid">Nendoroid</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="filter-figma" value="Figma" class="category-checkbox">
+                        <label for="filter-figma">Figma</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="filter-modelkit" value="Model Kit" class="category-checkbox">
+                        <label for="filter-modelkit">Model Kit</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="filter-scalefigure" value="Scale Figure" class="category-checkbox">
+                        <label for="filter-scalefigure">Scale Figure</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="productContainer">
+                <!-- Products will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Keranjang Belanja</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="cartItems">
+                <!-- Cart items will be added here -->
+            </div>
+            <div class="cart-total">
+                Total: <span id="cartTotal">Rp 0</span>
+            </div>
+            <div class="d-grid gap-2 mt-3">
+                <button class="btn btn-primary">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="footer-brand mb-4">
+                        <i class='bx bxs-store'></i>
+                        <span>FigureStore</span>
+                    </div>
+                    <p class="text-light-gray">Toko figure anime terpercaya dengan koleksi terlengkap dan original. Kami
+                        menyediakan berbagai merchandise anime berkualitas tinggi.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Menu</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html"><i class='bx bx-chevron-right'></i> Home</a></li>
+                        <li><a href="store.html"><i class='bx bx-chevron-right'></i> Store</a></li>
+                        <li><a href="list.html"><i class='bx bx-chevron-right'></i> Wishlist</a></li>
+                        <li><a href="AI.html"><i class='bx bx-chevron-right'></i> AI Asistens</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Kategori</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Nendoroid</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Figma</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Model Kit</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Scale Figure</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="list-unstyled contact-info">
+                        <li><i class='bx bxs-phone'></i> +62 123 456 789</li>
+                        <li><i class='bx bxs-envelope'></i> info@figurestore.com</li>
+                        <li><i class='bx bxs-map'></i> Bali, Indonesia</li>
+                    </ul>
+                    <div class="social-links mt-3">
+                        <a href="#" class="me-3"><i class='bx bxl-facebook'></i></a>
+                        <a href="#" class="me-3"><i class='bx bxl-instagram'></i></a>
+                        <a href="#" class="me-3"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-youtube'></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2024 FigureStore. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light2 me-3">Privacy Policy</a>
+                    <a href="#" class="text-light2">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Data produk
+        const products = [
+            {
+                id: 1,
+                name: "PVC Figure Tepetlisaur Whelp Natlan Saurian Series",
+                price: 750000,
+                image: "https://cdn.kyou.id/items/381878-pvc-figure-tepetlisaur-whelp-natlan-saurian-series-genshin-impact-8cm.jpg.webp",
+                status: "Ready Stock",
+                categories: ["Nendoroid"]
+            },
+            {
+                id: 2,
+                name: "PVC Figure Genkai Toppa GQuuuuuuX - Before Activating Omega Psycommu Ver",
+                price: 1200000,
+                image: "https://cdn.kyou.id/items/405333-pvc-figure-genkai-toppa-gquuuuuux-before-activating-omega-psycommu-ver-mobile-suit-gundam-gquuuuuux-size-tba.jpg.webp",
+                status: "Pre-Order",
+                categories: ["Model Kit"]
+            },
+            {
+                id: 3,
+                name: "Gundam Universe ASW-G-08 Gundam Barbatos - Renewal Ver",
+                price: 850000,
+                image: "https://cdn.kyou.id/items/398696-gundam-universe-asw-g-08-gundam-barbatos-renewal-ver-mobile-suit-gundam-iron-blooded-orphans.jpg.webp",
+                status: "Restock",
+                categories: ["Model Kit"]
+            },
+            {
+                id: 4,
+                name: "PVC Figure Hatsune Miku - Zaku Costume Ver. Vocaloid x Gundam",
+                price: 2000000,
+                image: "https://cdn.kyou.id/items/394584-pvc-figure-hatsune-miku-zaku-costume-ver-vocaloid-x-gundam-45th-anniversary-15cm.jpg.webp",
+                status: "Ready Stock",
+                categories: ["Scale Figure"]
+            },
+            {
+                id: 5,
+                name: "INART Action Figure 1/12 Zhu Bajie - Black Myth: Wukong",
+                price: 1200000,
+                image: "https://cdn.kyou.id/items/405541-inart-action-figure-112-zhu-bajie-black-myth-wukong.jpg.webp",
+                status: "Pre-Order",
+                categories: ["Scale Figure"]
+            },
+            {
+                id: 6,
+                name: "Model Kit 1/72 Motor Nuclear MNQ-XH08 Sun WuKong / The Monkey King",
+                price: 800000,
+                image: "https://cdn.kyou.id/items/355930-model-kit-172-motor-nuclear-mnq-xh08-sun-wukong-the-monkey-king.jpg.webp",
+                status: "Ready Stock",
+                categories: ["Nendoroid"]
+            }
+        ];
+
+        // Fungsi untuk menampilkan produk
+        function displayProducts(productsToShow = products) {
+            const container = document.getElementById('productContainer');
+            container.innerHTML = productsToShow.map(product => `
+        <div class="col-md-4 mb-4">
+            <a href="show.html?id=${product.id}" class="card-link" style="text-decoration:none; color:inherit;">
+                <div class="card h-100" style="cursor:pointer;">
+                    <span class="status-badge badge ${getStatusClass(product.status)}">${product.status}</span>
+                    <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">Rp ${product.price.toLocaleString()}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-primary btn-sm" onclick="event.preventDefault();addToCart('${product.name}', ${product.price}, '${product.image}')">
+                                <i class="bx bxs-cart-add"></i> Keranjang
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="event.preventDefault();addToWishlist(${product.id}, '${product.name}', ${product.price}, '${product.image}')">
+                                <i class="bx bxs-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    `).join('');
+        }
+
+        // Fungsi untuk mendapatkan class badge status
+        function getStatusClass(status) {
+            switch (status) {
+                case 'Ready Stock': return 'bg-success';
+                case 'Pre-Order': return 'bg-warning text-dark';
+                case 'Restock': return 'bg-info';
+                default: return 'bg-secondary';
+            }
+        }
+
+        // Fungsi untuk menambahkan ke keranjang
+        function addToCart(name, price, image) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push({ name, price, image });
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            // Tambahkan juga ke wishlist
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const id = wishlist.length + 1; // Generate ID sederhana
+
+            if (!wishlist.some(item => item.name === name)) {
+                wishlist.push({ id, name, price, image });
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                showNotification('Item berhasil ditambahkan ke keranjang dan wishlist', 'success');
+            } else {
+                showNotification('Item berhasil ditambahkan ke keranjang', 'success');
+            }
+
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        // Fungsi untuk menambahkan ke wishlist
+        function addToWishlist(id, name, price, image) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+            if (!wishlist.some(item => item.id === id)) {
+                wishlist.push({ id, name, price, image });
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                showNotification('Item berhasil ditambahkan ke wishlist', 'success');
+            } else {
+                showNotification('Item sudah ada di wishlist', 'warning');
+            }
+        }
+
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type} notification-popup`;
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Fungsi untuk update cart count
+        function updateCartCount() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            document.querySelector('.cart-count').textContent = cartItems.length;
+        }
+
+        // Fungsi untuk update cart display
+        function updateCartDisplay() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartContainer = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            let total = 0;
+
+            cartContainer.innerHTML = cartItems.map((item, index) => {
+                total += item.price;
+                return `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <h6>${item.name}</h6>
+                            <p>Rp ${item.price.toLocaleString()}</p>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotal.textContent = `Rp ${total.toLocaleString()}`;
+        }
+
+        // Fungsi untuk menghapus item dari cart
+        function removeFromCart(index) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCartCount();
+            updateCartDisplay();
+            showNotification('Item berhasil dihapus dari keranjang', 'success');
+        }
+
+        // Fungsi untuk mengurutkan produk
+        function sortProducts(value) {
+            let sortedProducts = [...products];
+            switch (value) {
+                case 'harga-terendah':
+                    sortedProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'harga-tertinggi':
+                    sortedProducts.sort((a, b) => b.price - a.price);
+                    break;
+                default:
+                    // Terbaru (default order)
+                    break;
+            }
+            displayProducts(sortedProducts);
+        }
+
+        // FILTER KATEGORI
+        document.addEventListener('DOMContentLoaded', function () {
+            displayProducts();
+            updateCartCount();
+            updateCartDisplay();
+
+            // Event listener untuk filter kategori
+            document.querySelectorAll('.category-checkbox').forEach(cb => {
+                cb.addEventListener('change', function () {
+                    filterByCategory();
+                });
+            });
+        });
+
+        function filterByCategory() {
+            const checked = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(cb => cb.value);
+            if (checked.length === 0) {
+                displayProducts(products);
+            } else {
+                const filtered = products.filter(product =>
+                    product.categories.some(cat => checked.includes(cat))
+                );
+                displayProducts(filtered);
+            }
+        }
+
+        
+    </script>
+    <script src="style.js"></script>
+</body>
+
+</html>
